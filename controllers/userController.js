@@ -10,6 +10,8 @@ module.exports = {
   // Get a single user
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
+      .populate('thoughts')
+      .populate('friends')
       .select('-__v')
       .then((user) =>
         !user
@@ -35,4 +37,22 @@ module.exports = {
       .then(() => res.json({ message: 'User and associated apps deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+// Update a user
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with this id!' })
+          : res.json(user)
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
 };
