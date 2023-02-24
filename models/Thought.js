@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction')
+const addDateSuffix = require('../utils/formattedDate')
 
 const thoughtSchema = new Schema(
   {
@@ -12,6 +13,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: timestamp => addDateSuffix(timestamp)
     },
     username: {
       type: String,
