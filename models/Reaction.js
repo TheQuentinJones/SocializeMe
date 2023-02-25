@@ -1,5 +1,5 @@
 const { Schema, Types } = require('mongoose');
-const addDateSuffix = require('../utils/formattedDate')
+// const addDateSuffix = require('../utils/formattedDate')
 
 const reactionSchema = new Schema(
   {
@@ -19,7 +19,7 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => addDateSuffix(timestamp)
+      // get: timestamp => addDateSuffix(timestamp)
     },
   },
   {
